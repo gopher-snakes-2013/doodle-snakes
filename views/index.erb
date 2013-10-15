@@ -3,65 +3,11 @@
 <head>
 
   <title>Canvas Test</title>
+  <link type="text/css" media="all" rel="stylesheet" href="css/normalize.css">
+  <link type="text/css" media="all" rel="stylesheet" href="css/theme.css">
+
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script type="text/javascript">
-
-
-  $( document ).ready(function() {
-    var canvas = document.getElementById('canvas');
-    if (canvas.getContext){
-      var ctx = canvas.getContext('2d');
-    } else {
-      console.log("no canvas context found");
-      alert("no canvas context found");
-    }
-
-    $( "#canvas" )
-
-      .mouseup(function(event) {
-      console.log("scribe stop");
-      $("#canvas").unbind('mousemove');
-    })
-
-      .mousedown(function(event) {
-      console.log("scribe start");
-
-      ctx.moveTo(event.pageX,event.pageY);
-      //on mouse move
-            $("#canvas").mousemove(function(event) {
-              ctx.lineTo(event.pageX,event.pageY);
-              ctx.stroke();
-              ctx.moveTo(event.pageX,event.pageY);
-              console.log("moving...");
-            });
-
-    });
-
-
-  });
-
-  var save = function(){
-    console.log("saving...");
-    var dataURL = canvas.toDataURL();
-    return dataURL;
-  };
-
-  var load = function(data){
-    console.log("loading...");
-    var IMG = document.createElement('img');
-    IMG.src = data;
-    IMG.width = canvas.width;
-    IMG.height = canvas.height;
-    document.body.appendChild(IMG);
-
-  };
-
-  var grab =  function() {
-    load(save());
-  }
-
-
-</script>
+  <script src="js/app.js"></script>
 </head>
 <body>
 
@@ -69,7 +15,7 @@
   <canvas id="canvas" width="800" height="500"
   style="border:5px solid blue;">
 </canvas>
-
+<br/>
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement">https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement</a>
 </body>
 
