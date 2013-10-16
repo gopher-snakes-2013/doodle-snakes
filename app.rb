@@ -3,6 +3,7 @@ $LOAD_PATH.unshift(File.expand_path('.'))
 require 'SecureRandom'
 require 'sinatra'
 require 'sinatra/activerecord'
+require 'bcrypt'
 
 require_relative './models/user'
 require_relative './models/doodle'
@@ -30,3 +31,23 @@ get '/doodle/:doodle_key' do
   @doodle = Doodle.find_by_doodle_key(params[:doodle_key])
   erb :doodle_detail
 end
+
+get '/welcome' do
+  erb :welcome
+end
+
+get '/register' do
+  erb :form_register
+end
+
+post '/login' do
+
+  redirect '/welcome'
+end
+
+post '/register_user' do
+  @user = User.create!({username:params[:username] , email:params[:email] , pass:params[:pass]});
+  redirect '/welcome'
+end
+
+
