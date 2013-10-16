@@ -3,6 +3,7 @@ $LOAD_PATH.unshift(File.expand_path('.'))
 require 'SecureRandom'
 require 'sinatra'
 require 'sinatra/activerecord'
+require 'bcrypt'
 
 require_relative './models/user'
 require_relative './models/doodle'
