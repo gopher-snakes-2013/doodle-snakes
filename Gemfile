@@ -30,5 +30,6 @@ group :development, :test do
   gem 'rspec'
   gem 'tux'
   gem 'faker'
+  gem 'shoulda-matchers'
 end
 

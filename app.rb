@@ -4,8 +4,8 @@ require 'SecureRandom'
 require 'sinatra'
 require 'sinatra/activerecord'
 
-require_relative './models/user'
-require_relative './models/doodle'
+require './models/user'
+require './models/doodle'
 
 
 begin
