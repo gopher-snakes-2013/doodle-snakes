@@ -18,3 +18,9 @@ set :database, ENV['DATABASE_URL']
 get '/' do
   erb :index
 end
+
+post '/doodle_upload' do
+  Doodle.create!({doodle_data: params[:doodle_data], user_id: 5})
+  redirect '/'
+end
+
