@@ -5,6 +5,7 @@ gem 'sinatra'
 gem 'sinatra-activerecord'
 
 
+
 group :production, :staging do
 # Bundler lets you use groups to only install gems in particular environments
 # http://bundler.io/v1.3/groups.html
@@ -28,5 +29,6 @@ group :development, :test do
   gem 'capybara'
   gem 'rspec'
   gem 'tux'
+  gem 'faker'
 end
 
