@@ -3,7 +3,8 @@ $LOAD_PATH.unshift(File.expand_path('.'))
 require 'sinatra'
 require 'sinatra/activerecord'
 
-# require_relative './models/user'
+require_relative './models/user'
+require_relative './models/doodle'
 
 
 begin
