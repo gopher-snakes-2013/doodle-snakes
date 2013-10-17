@@ -35,7 +35,8 @@
   var save = function(){
     console.log("saving...");
     var dataURL = canvas.toDataURL();
-    return dataURL;
+    var imageData = canvas.getImageData();
+    return imageData;
   };
 
   var load = function(data){
