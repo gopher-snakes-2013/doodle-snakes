@@ -12,8 +12,11 @@
 
 ActiveRecord::Schema.define(version: 20131016012534) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "doodles", force: true do |t|
-    t.text     "doodle_data"
+    t.binary   "doodle_data"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"

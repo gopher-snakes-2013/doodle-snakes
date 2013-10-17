@@ -1,4 +1,4 @@
-require './app'
+
 require 'sinatra/activerecord/rake'
 require_relative './db/faker_data_maker'
 
@@ -45,17 +45,26 @@ end
 
 desc "create the database"
 task "db:create" do
-  touch 'db/app.sqlite3'
+  %x(createdb doodledb)
 end
 
 desc "drop the database"
 task "db:drop" do
-  rm_f 'db/app.sqlite3'
+  %x(dropdb doodledb)
 end
 
 desc "drop and re-create the database"
 task "db:reset" do
-  %x( rake db:drop )
-  %x( rake db:create )
+  %x(rake db:drop)
+  %x(rake db:create)
 end
 
+task :environment do
+  require './app'
+end
+
+Rake::Task["db:migrate"].enhance [:environment]
+Rake::Task["db:rollback"].enhance [:environment]
+Rake::Task["faker"].enhance [:environment]
+Rake::Task["faker_users"].enhance [:environment]
+Rake::Task["faker_doodles"].enhance [:environment]
