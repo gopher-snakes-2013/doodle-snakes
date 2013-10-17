@@ -5,8 +5,8 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'bcrypt'
 
-require_relative './models/user'
-require_relative './models/doodle'
+require './models/user'
+require './models/doodle'
 
 
 begin
