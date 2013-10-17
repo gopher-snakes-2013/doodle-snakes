@@ -23,6 +23,12 @@ end
 
 
 
+get '/doodle/:doodle_key' do
+  @doodle = Doodle.find_by_doodle_key(params[:doodle_key])
+  erb :doodle_img_detail
+end
+
+
 
 
 

@@ -1,0 +1,14 @@
+<% if try(@doodle.doodle_key) %> 
+<form>
+  <input type="hidden" value="<%= @doodle.doodle_key %>" />
+</form>
+<div id="doodle_img">
+  <p>this is sparta!</p>
+</div>
+<% else %>
+
+<h1>doodle not found</h1>
+
+
+
+<% end %>
