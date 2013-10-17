@@ -3,14 +3,14 @@ ruby "1.9.3"
 
 gem 'sinatra'
 gem 'sinatra-activerecord'
-gem 'bcrypt'
+gem 'bcrypt-ruby'
+gem 'pg'
 
 
 group :production, :staging do
 # Bundler lets you use groups to only install gems in particular environments
 # http://bundler.io/v1.3/groups.html
 
-  gem 'pg'
   # Postgres is alternative to SQLite3 that is much better for Applications
   # being used by multiple users at the same time.
 
@@ -24,7 +24,7 @@ group :development, :test do
 # Heroku ignores development/test groups
 # https://devcenter.heroku.com/articles/getting-started-with-ruby#runtime-dependencies-on-development-test-gems
   gem 'dotenv'
-  gem 'sqlite3'
+  # gem 'sqlite3'
   gem 'shotgun'
   gem 'capybara'
   gem 'rspec'

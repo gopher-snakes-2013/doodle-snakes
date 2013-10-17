@@ -45,12 +45,12 @@ end
 
 desc "create the database"
 task "db:create" do
-  touch 'db/app.sqlite3'
+  %x( createdb doodledb )
 end
 
 desc "drop the database"
 task "db:drop" do
-  rm_f 'db/app.sqlite3'
+  %x( dropdb doodledb )
 end
 
 desc "drop and re-create the database"

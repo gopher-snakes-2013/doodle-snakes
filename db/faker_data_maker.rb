@@ -1,4 +1,5 @@
 require 'faker'
+require 'SecureRandom'
 require_relative '../models/user'
 require_relative '../models/doodle'
 
@@ -7,7 +8,7 @@ module Generator
   def self.fake_data(num)
   	num.times do
       temp = User.create!({username:Faker::Internet.user_name, email:Faker::Internet.email, password_hash:'1234'})
-      temp.doodles.create!({doodle_data: @img})
+      temp.doodles.create!({doodle_data: @img, doodle_key: SecureRandom.urlsafe_base64(12) })
   	end
   end
 
@@ -21,7 +22,7 @@ module Generator
   # Just create fake posts and associated secret links (hash_urls)
   def self.fake_doodles(num)
   	num.times do
-      Doodle.create!({doodle_data: @img, user_id: Random.rand(num)})
+      Doodle.create!({doodle_data: @img, user_id: Random.rand(num), doodle_key: SecureRandom.urlsafe_base64(12) } )
   	end
   end
 
