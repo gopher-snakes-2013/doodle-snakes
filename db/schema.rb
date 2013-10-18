@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20131016012534) do
   enable_extension "plpgsql"
 
   create_table "doodles", force: true do |t|
-    t.binary   "doodle_data"
+    t.text     "doodle_data"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"

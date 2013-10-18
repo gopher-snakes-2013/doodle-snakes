@@ -23,6 +23,18 @@ end
 
 
 
+get '/doodle/:doodle_key' do
+  @doodle = Doodle.find_by_doodle_key(params[:doodle_key])
+  erb :doodle_img_detail
+end
+
+
+post '/save' do
+  new_key = SecureRandom.urlsafe_base64(12)
+  @doodle = Doodle.create!({doodle_key: new_key, doodle_data: params[:doodle_data], user_id: 1})
+  redirect "/doodle/#{new_key}"
+end
+
 
 
 

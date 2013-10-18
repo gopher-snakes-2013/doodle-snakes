@@ -1,0 +1,9 @@
+<% unless @doodle.doodle_data.nil? %>
+<form id="form_img_detail">
+  <input type="hidden" name="doodle_data" value="<%= @doodle.doodle_data %>" />
+</form>
+<a href="/">Home</a>
+<script>loadImage();</script>
+<% else %>
+<h1>doodle not found</h1>
+<% end %>
