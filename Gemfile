@@ -5,6 +5,8 @@ gem 'sinatra'
 gem 'sinatra-activerecord'
 gem 'bcrypt-ruby'
 gem 'pg'
+gem 'faker'
+
 
 
 group :production, :staging do
@@ -18,7 +20,6 @@ group :development, :test do
   gem 'capybara'
   gem 'rspec'
   gem 'tux'
-  gem 'faker'
   gem 'shoulda-matchers'
 end
 
