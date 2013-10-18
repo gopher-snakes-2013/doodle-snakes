@@ -35,43 +35,29 @@ post '/save' do
   redirect "/doodle/#{new_key}"
 end
 
+post '/login' do
+  @user = User.find_by username: params[:username]
+  if @user.try(:password_hash) == params[:password]
+    redirect "/user/#{@user.username}"
 
+  end
+end
 
+get '/user/:username' do
+  @user = User.find_by username: params[:username]
+  erb :index
+end
 
+get '/register' do
+  erb :form_register
+end
 
+post '/register_user' do
+  @user = User.create!({username:params[:username] , email:params[:email], password: params[:password]});
+  redirect "/user/#{@user.username}"
+end
 
-
-
-
-
-
-# post '/doodle_upload' do
-#   doodle_url = SecureRandom.urlsafe_base64(12)
-#   @doodle = Doodle.create!({doodle_data: params[:doodle_data], user_id: 27, doodle_key: doodle_url})
-#   redirect to("/doodle/#{doodle_url}")
-# end
-
-# get '/doodle/:doodle_key' do
-#   @doodle = Doodle.find_by_doodle_key(params[:doodle_key])
-#   erb :doodle_detail
-# end
-
-# get '/welcome' do
-#   erb :welcome
-# end
-
-# get '/register' do
-#   erb :form_register
-# end
-
-# post '/login' do
-
-#   redirect '/welcome'
-# end
-
-# post '/register_user' do
-#   @user = User.create!({username:params[:username] , email:params[:email] , pass:params[:pass]});
-#   redirect '/welcome'
-# end
-
+post '/logout' do
+  redirect '/'
+end
 
