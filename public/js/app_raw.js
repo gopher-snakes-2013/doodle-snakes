@@ -3,8 +3,6 @@ function colorSelector(){
   console.log(color.value);
 }
 
-
-
 var saveImage = function(e){
   //prevent the actual form from submitting
   e.preventDefault();
@@ -19,7 +17,25 @@ var saveImage = function(e){
   console.log(input);
 
   //run the submit that the we blocked initially
-  this.submit();
+  // this.submit();
+  $.ajax({
+      url: '/save',
+      type: 'POST',
+      data: $(this).serialize() 
+  })
+  .done(function(response){
+      created_doodle = document.createElement("img");
+      created_doodle.src = dataURL;
+      created_doodle.height = canvas.height;
+      created_doodle.width = canvas.width;
+      document.body.appendChild(created_doodle);
+      canvas.remove();
+  })
+  .fail(function(){
+    console.log("you fucked up");
+  });
+
+
 };
 
 var loadImage = function(){
@@ -35,6 +51,8 @@ var loadImage = function(){
 //page will not be manipulated unless document is "ready". also called a "ready event". encapsulates all the jquery.
 $( document ).ready(function() {
 
+
+  //listen for posting
   var save_form = document.getElementById("form_doodle_submit");
   save_form.addEventListener("submit",saveImage,false);
 
