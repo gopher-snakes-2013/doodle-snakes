@@ -4,8 +4,41 @@ function colorSelector(){
 }
 
 
+
+var saveImage = function(e){
+  //prevent the actual form from submitting
+  e.preventDefault();
+
+  var canvas = document.getElementById('canvas');
+  console.log("what");
+
+  //turn image into URL for doodle_data
+  var dataURL = canvas.toDataURL();
+  var input = document.getElementsByName("doodle_data")[0];
+  input.value = dataURL;
+  console.log(input);
+
+  //run the submit that the we blocked initially
+  this.submit();
+};
+
+var loadImage = function(){
+  var input = document.getElementsByName("doodle_data")[0];
+  var data = input.value;
+  var saved_doodle = document.createElement("img");
+  saved_doodle.src = data;
+  saved_doodle.height = "500";
+  saved_doodle.width = "800";
+  document.body.appendChild(saved_doodle);
+}
+
 //page will not be manipulated unless document is "ready". also called a "ready event". encapsulates all the jquery.
 $( document ).ready(function() {
+
+  var save_form = document.getElementById("form_doodle_submit");
+  save_form.addEventListener("submit",saveImage,false);
+
+
   var canvas = document.getElementById('canvas');
 //context refers to a canvas' drawing context, AKA where all the drawing methods and properties will be defined.
 if (canvas.getContext){
@@ -25,8 +58,8 @@ function startMoving(){
 
 
   //sets our initial position on the canvas && registers where the drawing is going to begin.
-  var x = event.x; 
-  var y = event.y; 
+  var x = event.x;
+  var y = event.y;
   x -= canvas.offsetLeft;
   y -= canvas.offsetTop;
   //moves the "pen" to the paper
@@ -40,21 +73,21 @@ function startMoving(){
 
 
 function draw(event){
-  
-  var x = event.x; 
-  var y = event.y; 
+
+  var x = event.x;
+  var y = event.y;
   x -= canvas.offsetLeft;
   y -= canvas.offsetTop;
 
-  //from our initialized position on the canvas, 
-  //draw a line to the x,y coords of a mousemove event. then move the "pen" to that spot. 
+  //from our initialized position on the canvas,
+  //draw a line to the x,y coords of a mousemove event. then move the "pen" to that spot.
   //stroke is just so that we dont make an invisible line
-  
+
   ctx.lineTo(x,y);
   ctx.moveTo(x,y);
   ctx.stroke();
   ctx.strokeStyle = color.value;
-  
+
 
 }
 
@@ -66,6 +99,7 @@ function stopMoving(){
   canvas.removeEventListener("mousemove",draw,false);
   ctx.closePath();
 }
+
 
 
 });

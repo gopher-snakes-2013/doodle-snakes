@@ -1,14 +1,9 @@
-<% if try(@doodle.doodle_key) %> 
-<form>
-  <input type="hidden" value="<%= @doodle.doodle_key %>" />
+<% unless @doodle.doodle_data.nil? %>
+<form id="form_img_detail">
+  <input type="hidden" name="doodle_data" value="<%= @doodle.doodle_data %>" />
 </form>
-<div id="doodle_img">
-  <p>this is sparta!</p>
-</div>
+<a href="/">Home</a>
+<script>loadImage();</script>
 <% else %>
-
 <h1>doodle not found</h1>
-
-
-
 <% end %>
