@@ -1,6 +1,6 @@
 $LOAD_PATH.unshift(File.expand_path('.'))
 
-require 'SecureRandom'
+# require 'SecureRandom'
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'bcrypt'
