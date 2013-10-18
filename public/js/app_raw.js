@@ -1,9 +1,3 @@
-function colorSelector(){
-  var color = document.getElementById("color_id");
-  return color.value;
-}
-
-
 var saveImage = function(e){
   //prevent the actual form from submitting
   e.preventDefault();
@@ -32,71 +26,83 @@ var loadImage = function(){
 }
 
 function createCanvasView() {
-  var save_form = document.getElementById("form_doodle_submit");
-  save_form.addEventListener("submit",saveImage,false);
+  var save_form, canvas, ctx
 
+  function loadElements() {
+    save_form = document.getElementById("form_doodle_submit");
+    canvas = document.getElementById('canvas');
+  }
 
-  var canvas = document.getElementById('canvas');
-  // context refers to a canvas' drawing context, AKA where all the drawing
-  // methods and properties will be defined.
-  if (canvas.getContext){
-    var ctx = canvas.getContext('2d');
-    // Retrieve the 2d canvas context.
-  } else {
-    console.log("no canvas context found");
-    alert("no canvas context found");
+  function bindEventListeners() {
+    save_form.addEventListener("submit",saveImage,false);
+    canvas.addEventListener("mousedown",startMoving,false);
+    canvas.addEventListener("mouseup",stopMoving,false);
   }
 
 
-  //on the mousedown event, begin the startMoving function.
-  canvas.addEventListener("mousedown",startMoving,false);
+  function setupCanvas() {
+    loadElements();
 
-  function startMoving(){
+    // context refers to a canvas' drawing context, AKA where all the drawing
+    // methods and properties will be defined.
+
+    if (canvas.getContext){
+      ctx = canvas.getContext('2d');
+      // Retrieve the 2d canvas context.
+    } else {
+      console.log("no canvas context found");
+      alert("no canvas context found");
+    }
+    bindEventListeners();
+  }
+
+
+
+
+  function startMoving(event){
     ctx.beginPath();
 
-
     //sets our initial position on the canvas && registers where the drawing is going to begin.
-    var x = event.x;
-    var y = event.y;
-    x -= canvas.offsetLeft;
-    y -= canvas.offsetTop;
+    var position = adjustPosition(event);
+
     //moves the "pen" to the paper
-    ctx.moveTo(x,y);
+    ctx.moveTo(position.x,position.y);
 
-    //waits until the mousemove event occurs--then run draw
+    // run draw each time the mousemove event fires
     canvas.addEventListener("mousemove",draw,false);
-
-
   }
 
 
   function draw(event){
+    var position = adjustPosition(event)
 
-    var x = event.x;
-    var y = event.y;
-    x -= canvas.offsetLeft;
-    y -= canvas.offsetTop;
-
-    // from our initialized position on the canvas, draw a line to the x,y
-    // coords of a mousemove event. then move the "pen" to that spot.  stroke
-    // is just so that we dont make an invisible line
-
-    ctx.lineTo(x,y);
-    ctx.moveTo(x,y);
+    ctx.lineTo(position.x,position.y);
+    ctx.moveTo(position.x,position.y);
     ctx.stroke();
     ctx.strokeStyle = colorSelector();
-
-
   }
 
-  //wait for the drag to stop, run stopMoving
-  canvas.addEventListener("mouseup",stopMoving,false);
 
   //removes the mousemove listener on mouseup. now you can move the mouse freely without the draw function being called
   function stopMoving(){
     canvas.removeEventListener("mousemove",draw,false);
     ctx.closePath();
   }
+
+  function colorSelector(){
+    var color = document.getElementById("color_id");
+    return color.value;
+  }
+
+  function adjustPosition(position) {
+    return {
+      x: position.x - canvas.offsetLeft,
+      y: position.y - canvas.offsetTop
+    }
+  }
+
+
+  setupCanvas();
 }
 
 // page will not be manipulated unless document is "ready". also called a
