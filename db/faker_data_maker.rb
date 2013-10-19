@@ -1,5 +1,6 @@
 require 'faker'
 require 'securerandom'
+require 'bcrypt'
 require_relative '../models/user'
 require_relative '../models/doodle'
 
@@ -7,7 +8,7 @@ module Generator
   # Fill the database with Users and associated posts and secret links (hash_urls)
   def self.fake_data(num)
   	num.times do
-      temp = User.create!({username:Faker::Internet.user_name, email:Faker::Internet.email, password_hash:'1234'})
+      temp = User.create!({username:Faker::Internet.user_name, email:Faker::Internet.email, password_hash: "1234"})
       temp.doodles.create!({doodle_data: @img, doodle_key: SecureRandom.urlsafe_base64(12) })
   	end
   end
