@@ -21,9 +21,9 @@ var saveImage = function(e){
   $.ajax({
       url: '/save',
       type: 'POST',
-      data: $(this).serialize() 
+      data: $(this).serialize()
   })
-  .done(function(response){
+  .done(function(response,a,b,c){
       created_doodle = document.createElement("img");
       created_doodle.src = dataURL;
       created_doodle.height = canvas.height;
